@@ -45,6 +45,7 @@
                 <option value="">Selectare stare</option>
                 <option value="0" {{ ( isset($selectedState) && $selectedState  == 0 ) ? 'selected' : '' }}>In curs de livrare</option>
                 <option value="2" {{ ( isset($selectedState) && $selectedState  == 2 ) ? 'selected' : '' }}>Livrata</option>
+                <option value="2" {{ ( isset($selectedState) && $selectedState  == 1 ) ? 'selected' : '' }}>Facturata</option>
                 <option value="3" {{ ( isset($selectedState) && $selectedState  == 3 ) ? 'selected' : '' }}>Suspendata</option>
               </select>
             </div>
@@ -112,8 +113,8 @@
             @endif
             <td style="text-align: center">
                 @if($order->state==0) <p class="label label-default">In curs de livrare</p> 
-                @elseif ($order->state==1) <p class="label label-warning">Partial livrata</p> 
                 @elseif ($order->state==2) <p class="label label-success">Livrata</p> 
+                @elseif ($order->state==1) <p class="label label-warning">Facturata</p> 
                 @elseif ($order->state==3) <p class="label label-danger">Suspendata</p> 
                 @endif
             </td>

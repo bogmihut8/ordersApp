@@ -188,7 +188,8 @@
                                 <span class="input-group-addon" id="state-addon"><b>Stare</b></span>
                                 <select name="state" class="form-control" value="{{ $order['state'] }}" style="padding-left: 10px;">
                                     <option value="0" {{ ( $order['state']  == 0 ) ? 'selected' : '' }}>In curs de livrare</option>
-                                    <option value="2" {{ ( $order['state']  == 2 ) ? 'selected' : '' }}>Livrata</option>
+                                    <option value="2" {{ ( $order['state']  == 2 ) ? 'selected' : '' }}>Livrata</option>>
+                                    <option value="0" {{ ( $order['state']  == 1 ) ? 'selected' : '' }}>Facturata</option>
                                     <option value="3" {{ ( $order['state']  == 3 ) ? 'selected' : '' }}>Suspendata</option>
                                 </select>
                             </div>

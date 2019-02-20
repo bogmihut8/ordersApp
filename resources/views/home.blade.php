@@ -97,9 +97,9 @@
               <td>-</td>
             @endif
             <td style="text-align: center;">
-                @if($order['state']==0) <p class="label label-default">In curs de livrare</p> 
-                @elseif ($order['state']==1) <p class="label label-warning">Partial livrata</p> 
+                @if($order['state']==0) <p class="label label-default">In curs de livrare</p>
                 @elseif ($order['state']==2) <p class="label label-success">Livrata</p> 
+                @elseif ($order['state']==1) <p class="label label-warning">Facturata</p>
                 @elseif ($order['state']==3) <p class="label label-danger">Suspendata</p> 
                 @endif
             </td>

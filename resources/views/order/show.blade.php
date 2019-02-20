@@ -188,7 +188,7 @@
                                 <span class="input-group-addon" id="state-addon"><b>Stare</b></span>
                                 @php
                                     if ($order['state'] == 0) $state = 'In curs de livrare';
-                                    else if ($order['state'] == 1) $state = 'Partial livrata';
+                                    else if ($order['state'] == 1) $state = 'Facturata';
                                     else if ($order['state'] == 2) $state = 'Livrata';
                                     else if ($order['state'] == 3) $state = 'Suspendata';
                                 @endphp
@@ -204,6 +204,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 0))}}">In curs de livrare</a></li>
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 2))}}">Livrata</a></li>
+                                    <li><a href="{{action('OrderController@updateState', array($order['id'], 1))}}">Facturata</a></li>
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 3))}}">Suspendata</a></li>
                                 </ul>
                                 <a href="/comenzi/public/duplicate/{{$order['id']}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
