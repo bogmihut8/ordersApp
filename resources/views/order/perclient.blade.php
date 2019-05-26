@@ -45,7 +45,7 @@
                 <option value="">Selectare stare</option>
                 <option value="0" {{ ( isset($selectedState) && $selectedState  == 0 ) ? 'selected' : '' }}>In curs de livrare</option>
                 <option value="2" {{ ( isset($selectedState) && $selectedState  == 2 ) ? 'selected' : '' }}>Livrata</option>
-                <option value="2" {{ ( isset($selectedState) && $selectedState  == 1 ) ? 'selected' : '' }}>Facturata</option>
+                <option value="1" {{ ( isset($selectedState) && $selectedState  == 1 ) ? 'selected' : '' }}>Facturata</option>
                 <option value="3" {{ ( isset($selectedState) && $selectedState  == 3 ) ? 'selected' : '' }}>Suspendata</option>
               </select>
             </div>
@@ -77,7 +77,7 @@
     <table class="table table-striped perclient-table">
         <thead>
           <tr>
-            <th><input type="checkbox" id="check-all" /></th>
+<!--             <th><input type="checkbox" id="check-all" /></th> -->
             <th>Comanda</th>
             <th>Articol</th>
             <th>Cantitate</th>
@@ -94,7 +94,7 @@
       
           @foreach($orders as $order)
           <tr class="order {{'order-' . $order->id}}">
-            <td><input type="checkbox" class="invoice-checkbox" id="{{'order-' . $order->id}}" /></td>
+<!--             <td><input type="checkbox" class="invoice-checkbox" id="{{'order-' . $order->id}}" /></td> -->
             <td>{{$order->name}}</td>
             <td>{{$order->article}}</td>
             <td class="total" data-ceva="{{'order-' . $order->id}}">{{$order->quantity}}</td>
@@ -208,26 +208,20 @@
       }
     });
     
-    checkAll.addEventListener('change', function(){
-      var checked = this.checked;
-      for (var i = 0; i < checkboxes.length; i++) {
-        if(checked) {
-          checkboxes[i].checked = true;
-        }
-        else {
-          checkboxes[i].checked = false;
-        }
-        var event = document.createEvent("HTMLEvents");
-        event.initEvent('change', false, true);
-        checkboxes[i].dispatchEvent(event);
-        
-        if(checked) {
-          document.getElementById("order-data-total").innerHTML = getPageTotal();
-          document.getElementById("order-data-delivered").innerHTML = getPageDelivered();
-          document.getElementById("order-data-invoiced").innerHTML = getPageInvoiced();
-        }
-      }  
-    });
+    var total=0;
+    var delivered=0;
+    var invoiced=0;
+    
+    for (var i = 0; i < orders.length; i++) {
+      total = total + Number(orders[i].querySelector(".total").innerHTML);
+      delivered = delivered + Number(orders[i].querySelector(".delivered").innerHTML);
+      invoiced = invoiced + Number(orders[i].querySelector(".invoiced").innerHTML);
+    }
+    
+    document.getElementById("order-data-total").innerHTML = total;
+    document.getElementById("order-data-delivered").innerHTML = delivered;
+    document.getElementById("order-data-invoiced").innerHTML = invoiced;
+    
     
   });
   

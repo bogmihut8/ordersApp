@@ -129,7 +129,7 @@
                 <ul class="nav navbar-nav">
                     @if (Auth::check())
                         <li><a href="{{ url('/') }}"><i class="fa fa-btn fa-users"></i>Clienti</a></li>
-                        <li><a href="{{ url('/facturi') }}"><i class="fa fa-btn fa-th-list"></i>Comenzi</a></li>
+<!--                         <li><a href="{{ url('/facturi') }}"><i class="fa fa-btn fa-th-list"></i>Comenzi</a></li> -->
                         <li><a href="{{ url('/subcontractor') }}"><i class="fa fa-btn fa-truck"></i>Subcontractori</a></li>
                         <li><a href="{{ url('/user') }}"><i class="fa fa-btn fa-user"></i>Utilizatori</a></li>
                     @endif

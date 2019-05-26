@@ -276,7 +276,6 @@ class OrderController extends Controller
         $order->state = $newState;
         if($newState == 1) {
             $order->delivered = $order->delivered + $request->get('delivered');
-            $order->partial_date = date('Y-m-d H:i:s');   
         }
         $order->parcels = $order->parcels + $request->get('parcels');
         $order->weight = $order->weight + $request->get('weight');

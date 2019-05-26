@@ -86,28 +86,6 @@
                             @endif
                         </div>
                         <div class="row">
-                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('parcels') ? ' has-error' : '' }}">
-                                <span class="input-group-addon" id="parcels-addon"><b>Numar colete</b></span>
-                                <input type="text" class="form-control" aria-describedby="parcels-addon" value="{{ $order['parcels'] }}" name="parcels" style="background-color:white">
-                            </div>
-                            @if ($errors->has('parcels'))
-                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
-                                        <strong>{{ $errors->first('parcels') }}</strong>
-                                    </span>
-                            @endif
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('weight') ? ' has-error' : '' }}">
-                                <span class="input-group-addon" id="weight-addon"><b>Greutate</b></span>
-                                <input type="text" class="form-control" aria-describedby="weight-addon" value="{{ $order['weight'] }}" name="weight" style="background-color:white">
-                            </div>
-                            @if ($errors->has('weight'))
-                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
-                                        <strong>{{ $errors->first('weight') }}</strong>
-                                    </span>
-                            @endif
-                        </div>
-                        <div class="row">
                             <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('price_total') ? ' has-error' : '' }}">
                                 <span class="input-group-addon" id="weight-addon"><b>Pret facturare</b></span>
                                 <input type="text" class="form-control" aria-describedby="price_total-addon" value="{{ $order['price_total'] }}" name="price_total" style="background-color:white">
@@ -207,7 +185,7 @@
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 1))}}">Facturata</a></li>
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 3))}}">Suspendata</a></li>
                                 </ul>
-                                <a href="/comenzi/public/duplicate/{{$order['id']}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
+                                <a href="/duplicate/{{$order['id']}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
                                 <button type="submit" class="btn btn-primary" style="margin-left:15px;">Actualizare</button>
                             </div>
                         </div>
