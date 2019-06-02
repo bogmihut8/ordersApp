@@ -5,9 +5,6 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div style="margin-bottom:20px;">
-              <p>
-                {{ Request::get('searchTerm') }}
-              </p>
 <!--               <a class="btn btn-default" href="{{ \Session::get('returnURL') }}?searchTerm={{Request::get('searchTerm')}}&selectedState={{Request::get('selectedState')}}&from_date={{Request::get('from_date')}}&to_date={{Request::get('to_date')}}"> -->
                 <a class="btn btn-default" href="{{ \Session::get('returnURL') }}">
                     <i class="fa fa-chevron-left"></i> Inapoi
