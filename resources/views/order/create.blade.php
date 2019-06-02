@@ -91,6 +91,58 @@
                                 </select>
                             </div>
                         </div>
+                      
+                      <div class="form-group">
+                            <label for="subcontractor_role" class="col-md-4 control-label">Rol subcontractor</label>
+
+                            <div class="col-md-6{{ $errors->has('subcontractor_role') ? ' has-error' : '' }}">
+                                <input id="subcontractor_role" type="text" class="form-control" name="subcontractor_role" value="{{ old('subcontractor_role') }}">
+                                @if ($errors->has('subcontractor_role'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('subcontractor_role') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                      
+                      <div class="form-group">
+                            <label for="faza" class="col-md-4 control-label">Faza</label>
+
+                            <div class="col-md-6{{ $errors->has('faza') ? ' has-error' : '' }}">
+                                <input id="faza" type="text" class="form-control" name="faza" value="{{ old('faza') }}">
+                                @if ($errors->has('faza'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('faza') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                      
+                      <div class="form-group">
+                            <label for="batai" class="col-md-4 control-label">Batai</label>
+
+                            <div class="col-md-6{{ $errors->has('batai') ? ' has-error' : '' }}">
+                                <input id="batai" type="text" class="form-control" name="batai" value="{{ old('batai') }}">
+                                @if ($errors->has('batai'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('batai') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                      
+                      <div class="form-group">
+                            <label for="cutite" class="col-md-4 control-label">Cutite</label>
+
+                            <div class="col-md-6{{ $errors->has('cutite') ? ' has-error' : '' }}">
+                                <input id="cutite" type="text" class="form-control" name="cutite" value="{{ old('cutite') }}">
+                                @if ($errors->has('cutite'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('cutite') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         
                         <!--<div class="form-group">-->
                         <!--    <label for="parcels" class="col-md-4 control-label">Colete</label>-->

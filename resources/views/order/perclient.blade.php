@@ -42,15 +42,15 @@
             </div>
             <div class="row" style="margin-left:0;margin-top:10px;">
               <select class="col-md-4" style="height:35px;padding-left:5px" name="state">
-                <option value="">Selectare stare</option>
-                <option value="0" {{ ( isset($selectedState) && $selectedState  == 0 ) ? 'selected' : '' }}>In curs de livrare</option>
+                <option value="empty"  {{ ( isset($selectedState) && $selectedState  == 'empty' ) ? 'selected' : '' }}>Selectare stare</option>
+                <option value="0" {{ ( isset($selectedState) && $selectedState  == 0 && $selectedState != 'empty' ) ? 'selected' : '' }}>In curs de livrare</option>
                 <option value="2" {{ ( isset($selectedState) && $selectedState  == 2 ) ? 'selected' : '' }}>Livrata</option>
                 <option value="1" {{ ( isset($selectedState) && $selectedState  == 1 ) ? 'selected' : '' }}>Facturata</option>
                 <option value="3" {{ ( isset($selectedState) && $selectedState  == 3 ) ? 'selected' : '' }}>Suspendata</option>
               </select>
             </div>
             <div class="row" style="margin-left:0">
-              <span class="col-md-3" style="margin-top:12px;padding-left:0">Data scadenta: </span>
+              <span class="col-md-3" style="margin-top:12px;padding-left:0">Data livrare: </span>
               <input id="from_date" type="text" class="col-md-3 datepicker" name="from_date" style="margin-top:10px;padding-left:5px;position:relative;left:-16px;" value='{{ isset($from_date) ? OrderController::formatDate($from_date) : '' }}' placeholder="De la">
               <input id="to_date" type="text" class="col-md-3 datepicker" name="to_date" style="margin-top:10px;padding-left:5px" value='{{ isset($to_date) ? OrderController::formatDate($to_date) : '' }}' placeholder="Pana la">
             </div>
@@ -71,7 +71,7 @@
             <span id="order-data-invoiced">0</span>
           </span>
         </div>
-        <p style="margin-bottom:50px;">*din comenzile care au fost selectate</p>
+        <p style="margin-bottom:50px;">*din comenzile afisate</p>
       </div>
     </div><!-- /.row -->
     <table class="table table-striped perclient-table">
@@ -120,7 +120,8 @@
             </td>
             <td>
                 <a href="{{action('OrderController@destroy', $order->id)}}" class="btn btn-danger" style="margin-left:10px;"><i class="fa fa-trash"></i></a>
-                <a href="{{action('OrderController@show', $order->id)}}" class="btn btn-primary" style="margin-left:10px;"><i class="fa fa-sign-in"></i></a>
+                <a href="{{action('OrderController@show', $order->id)}}" onclick="prepareFrame('{{action('OrderController@show', $order->id)}}')" class="btn btn-primary" style="margin-left:10px;"><i class="fa fa-sign-in"></i></a>
+<!--               <a href="{{action('OrderController@show', [$order->id, 'searchTerm' => isset($searchTerm) ? $searchTerm: '', 'selectedState' => isset($selectedState) ? $selectedState : '', 'from_date' => isset($from_date) ? $from_date : '', 'to_date' => isset($to_date) ? $to_date : ''])}}" onclick="prepareFrame('{{action('OrderController@show', $order->id)}}')" class="btn btn-primary" style="margin-left:10px;"><i class="fa fa-sign-in"></i></a> -->
             </td>
           </tr>
           @endforeach
@@ -139,6 +140,16 @@
       document.addEventListener('DOMContentLoaded', fn);
     }
   }
+  
+    function prepareFrame(url) {
+//         var ifrm = document.createElement("iframe");
+//         ifrm.setAttribute("src", url);
+//         ifrm.setAttribute("style", "width: 100%;height: 100%;position: absolute;top: 0;margin-top:70px;");
+//         document.body.appendChild(ifrm);
+//         ifrm.addEventListener('load', function(){ifrm.document.getElementById("header").style.display="none"})
+      console.log("ai uitat");
+       
+    }
   
   ready(function(){
     var chClass = 'invoice-checkbox';
@@ -207,6 +218,27 @@
         location.href = pdfUrl; 
       }
     });
+    
+//     checkAll.addEventListener('change', function(){
+//       var checked = this.checked;
+//       for (var i = 0; i < checkboxes.length; i++) {
+//         if(checked) {
+//           checkboxes[i].checked = true;
+//         }
+//         else {
+//           checkboxes[i].checked = false;
+//         }
+//         var event = document.createEvent("HTMLEvents");
+//         event.initEvent('change', false, true);
+//         checkboxes[i].dispatchEvent(event);
+        
+//         if(checked) {
+//           document.getElementById("order-data-total").innerHTML = getPageTotal();
+//           document.getElementById("order-data-delivered").innerHTML = getPageDelivered();
+//           document.getElementById("order-data-invoiced").innerHTML = getPageInvoiced();
+//         }
+//       }  
+//     });
     
     var total=0;
     var delivered=0;

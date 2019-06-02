@@ -5,6 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div style="margin-bottom:20px;">
+              <p>
+                {{ Request::get('searchTerm') }}
+              </p>
+<!--               <a class="btn btn-default" href="{{ \Session::get('returnURL') }}?searchTerm={{Request::get('searchTerm')}}&selectedState={{Request::get('selectedState')}}&from_date={{Request::get('from_date')}}&to_date={{Request::get('to_date')}}"> -->
                 <a class="btn btn-default" href="{{ \Session::get('returnURL') }}">
                     <i class="fa fa-chevron-left"></i> Inapoi
                 </a>
@@ -85,6 +89,28 @@
                                     </span>
                             @endif
                         </div>
+                      <div class="row" style="display:none">
+                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('parcels') ? ' has-error' : '' }}">
+                                <span class="input-group-addon" id="parcels-addon"><b>Numar colete</b></span>
+                                <input type="text" class="form-control" aria-describedby="parcels-addon" value="{{ $order['parcels'] }}" name="parcels" style="background-color:white">
+                            </div>
+                            @if ($errors->has('parcels'))
+                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
+                                        <strong>{{ $errors->first('parcels') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                      <div class="row" style="display:none">
+                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('weight') ? ' has-error' : '' }}">
+                                <span class="input-group-addon" id="weight-addon"><b>Greutate</b></span>
+                                <input type="text" class="form-control" aria-describedby="weight-addon" value="{{ $order['weight'] }}" name="weight" style="background-color:white">
+                            </div>
+                            @if ($errors->has('weight'))
+                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
+                                        <strong>{{ $errors->first('weight') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('price_total') ? ' has-error' : '' }}">
                                 <span class="input-group-addon" id="weight-addon"><b>Pret facturare</b></span>
@@ -117,6 +143,56 @@
                                 </select>
                             </div>
                         </div>
+                      
+                      
+                      
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('subcontractor_role') ? ' has-error' : '' }}">
+                                <span class="input-group-addon" id="subcontractor_role-addon"><b>Rol subcontractor</b></span>
+                                <input type="text" class="form-control" aria-describedby="subcontractor_role-addon" value="{{ $order['subcontractor_role'] }}" name="subcontractor_role" style="background-color:white">
+                            </div>
+                            @if ($errors->has('subcontractor_role'))
+                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
+                                        <strong>{{ $errors->first('subcontractor_role') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                      <div class="row">
+                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('faza') ? ' has-error' : '' }}">
+                                <span class="input-group-addon" id="faza-addon"><b>Faza</b></span>
+                                <input type="text" class="form-control" aria-describedby="article-addon" value="{{ $order['faza'] }}" name="faza" style="background-color:white">
+                            </div>
+                            @if ($errors->has('faza'))
+                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
+                                        <strong>{{ $errors->first('faza') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                      <div class="row">
+                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('batai') ? ' has-error' : '' }}">
+                                <span class="input-group-addon" id="batai-addon"><b>Batai</b></span>
+                                <input type="text" class="form-control" aria-describedby="batai-addon" value="{{ $order['batai'] }}" name="batai" style="background-color:white">
+                            </div>
+                            @if ($errors->has('batai'))
+                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
+                                        <strong>{{ $errors->first('batai') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                      <div class="row">
+                            <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('cutite') ? ' has-error' : '' }}">
+                                <span class="input-group-addon" id="cutite-addon"><b>Cutite</b></span>
+                                <input type="text" class="form-control" aria-describedby="cutite-addon" value="{{ $order['cutite'] }}" name="cutite" style="background-color:white">
+                            </div>
+                            @if ($errors->has('cutite'))
+                                    <span class="col-md-8 col-md-offset-2 input-group help-block" style="color: #a94442">
+                                        <strong>{{ $errors->first('cutite') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+                      
+                      
+                      
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('entry_date') ? ' has-error' : '' }}">
                                 <span class="input-group-addon" id="entry-date-addon"><b>Data intrare</b></span>
@@ -185,7 +261,7 @@
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 1))}}">Facturata</a></li>
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 3))}}">Suspendata</a></li>
                                 </ul>
-                                <a href="/duplicate/{{$order['id']}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
+                                <a href="/comenzi/public/duplicate/{{$order['id']}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
                                 <button type="submit" class="btn btn-primary" style="margin-left:15px;">Actualizare</button>
                             </div>
                         </div>

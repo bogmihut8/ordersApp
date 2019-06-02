@@ -83,6 +83,12 @@ class OrderController extends Controller
         $order->quantity = $request->get('quantity');
         $order->client_id = $request->get('client_id');
         $order->subcontractor_id = ( $request->get('subcontractor_id') == "" ? null : $request->get('subcontractor_id'));
+      
+        $order->subcontractor_role = $request->get('subcontractor_role');
+        $order->faza = $request->get('faza');
+        $order->batai = $request->get('batai');
+        $order->cutite = $request->get('cutite');
+      
         $order->entry_date = $this->formatDate($request->get('entry_date'));
         $order->due_date = $this->formatDate($request->get('due_date'));
         $order->parcels = 0;
@@ -170,6 +176,12 @@ class OrderController extends Controller
         $order->price_total = $request->get('price_total');
         $order->client_id = $request->get('client_id');
         $order->subcontractor_id = ( $request->get('subcontractor_id') == "" ? null : $request->get('subcontractor_id'));
+      
+        $order->subcontractor_role = $request->get('subcontractor_role');
+        $order->faza = $request->get('faza');
+        $order->batai = $request->get('batai');
+        $order->cutite = $request->get('cutite');
+      
         $order->entry_date = $this->formatDate($request->get('entry_date'));
         $order->partial_date = $this->formatDate($request->get('partial_date'));
         $order->due_date = $this->formatDate($request->get('due_date'));
@@ -213,6 +225,12 @@ class OrderController extends Controller
         $order->price_total = $request->get('price_total');
         $order->client_id = $request->get('client_id');
         $order->subcontractor_id = ( $request->get('subcontractor_id') == "" ? null : $request->get('subcontractor_id'));
+      
+        $order->subcontractor_role = $request->get('subcontractor_role');
+        $order->faza = $request->get('faza');
+        $order->batai = $request->get('batai');
+        $order->cutite = $request->get('cutite');
+      
         $order->entry_date = $this->formatDate($request->get('entry_date'));
         $order->partial_date = $this->formatDate($request->get('partial_date'));
         $order->due_date = $this->formatDate($request->get('due_date'));
@@ -294,13 +312,13 @@ class OrderController extends Controller
         
         $orders = \App\Order::where(function($query) use ($searchTerm, $selectedClient, $selectedState, $from_date, $to_date) {
                                     if (!is_null($from_date) && $from_date != '') {
-                                        $query->whereDate('due_date', '>=', $from_date);
+                                        $query->whereDate('partial_date', '>=', $from_date);
                                     }
                                     if (!is_null($to_date) && $to_date != '') {
-                                        $query->whereDate('due_date', '<=', $to_date);
+                                        $query->whereDate('partial_date', '<=', $to_date);
                                     }
                                     if (!is_null($from_date) && !is_null($to_date) && $from_date != '' && $to_date != '') {
-                                        $query->whereBetween('due_date', [$from_date, $to_date]);
+                                        $query->whereBetween('partial_date', [$from_date, $to_date]);
                                     }
                                     if (!is_null($selectedClient) && $selectedClient != '') {
                                         $query->where('client_id', $selectedClient);
@@ -338,18 +356,18 @@ class OrderController extends Controller
         
         $orders = \App\Order::where(function($query) use ($searchTerm, $selectedClient, $selectedState, $from_date, $to_date) {
                                     if (!is_null($from_date) && $from_date != '') {
-                                        $query->whereDate('due_date', '>=', $from_date);
+                                        $query->whereDate('partial_date', '>=', $from_date);
                                     }
                                     if (!is_null($to_date) && $to_date != '') {
-                                        $query->whereDate('due_date', '<=', $to_date);
+                                        $query->whereDate('partial_date', '<=', $to_date);
                                     }
                                     if (!is_null($from_date) && !is_null($to_date) && $from_date != '' && $to_date != '') {
-                                        $query->whereBetween('due_date', [$from_date, $to_date]);
+                                        $query->whereBetween('partial_date', [$from_date, $to_date]);
                                     }
                                     if (!is_null($selectedClient) && $selectedClient != '') {
                                         $query->where('client_id', $selectedClient);
                                     }
-                                    if (!is_null($selectedState) && $selectedState != '') {
+                                    if (!is_null($selectedState) && $selectedState != 'empty') {
                                         $query->where('state', $selectedState);
                                     }
                                     if (!is_null($searchTerm) && $searchTerm != '') {
