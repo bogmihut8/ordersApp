@@ -112,13 +112,13 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $order = \App\Order::find($id);
         $clients=\App\Client::all();
         $subcontractors=\App\Subcontractor::all();
         if(str_contains(url()->previous(), 'facturi') || (str_contains(url()->previous(), 'client') && str_contains(url()->previous(), 'orders'))){
-            Session::put('returnURL', url()->previous());
+            Session::put('returnURL', "/client/{$order->client_id}/orders?searchTerm={$request->query('searchTerm')}&selectedState={$request->query('selectedState')}&from_date={$request->query('from_date')}&to_date={$request->query('to_date')}");
         }
         return view('order.show', compact('order', 'id', 'clients', 'subcontractors'));
     }
@@ -237,7 +237,7 @@ class OrderController extends Controller
         $order->invoice_date = $this->formatDate($request->get('invoice_date'));
         $order->save();
         
-        return redirect("/client/{$order->client_id}/orders")->with('success', 'Comanda a fost creata');
+        return redirect("/client/{$order->client_id}/orders?searchTerm={$request->query('searchTerm')}&selectedState={$request->query('selectedState')}&from_date={$request->query('from_date')}&to_date={$request->query('to_date')}")->with('success', 'Comanda a fost creata');
     }
 
     /**
@@ -402,15 +402,47 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function clientOrders($id)
+    public function clientOrders(Request $request, $id)
     {
-        $orders = DB::table('orders')
-                ->where('client_id', $id)
-                ->get();
+      $searchTerm = $request->query('searchTerm');
+        
+        $from_date = $request->query('from_date');
+        $to_date = $request->query('to_date');
         
         $clientDb = \App\Client::find($id);
         $client = $clientDb->name;
-        return view('order.perclient', compact('orders', 'client', 'id'));
+        $selectedClient = $id;
+        
+        $selectedState = $request->input('selectedState');
+        
+        $orders = \App\Order::where(function($query) use ($searchTerm, $selectedClient, $selectedState, $from_date, $to_date) {
+                                    if (!is_null($from_date) && $from_date != '') {
+                                        $query->whereDate('partial_date', '>=', $from_date);
+                                    }
+                                    if (!is_null($to_date) && $to_date != '') {
+                                        $query->whereDate('partial_date', '<=', $to_date);
+                                    }
+                                    if (!is_null($from_date) && !is_null($to_date) && $from_date != '' && $to_date != '') {
+                                        $query->whereBetween('partial_date', [$from_date, $to_date]);
+                                    }
+                                    if (!is_null($selectedClient) && $selectedClient != '') {
+                                        $query->where('client_id', $selectedClient);
+                                    }
+                                    if (!is_null($selectedState) && $selectedState != 'empty') {
+                                        $query->where('state', $selectedState);
+                                    }
+                                    if (!is_null($searchTerm) && $searchTerm != '') {
+                                        $query->where(function($query) use ($searchTerm) {
+                                            $query->where( 'name', 'LIKE', '%' . $searchTerm . '%' );
+                                            $query->orWhere('article', 'LIKE', '%' . $searchTerm . '%' ); 
+                                        });
+                                    }
+                            })//->toSql();
+                            ->get();
+                            //dd($orders);
+
+        return view('order.perclient', compact('orders', 'client', 'searchTerm', 'from_date', 'to_date', "id", "selectedState"));
+    
     }
     
     static public function formatDate($date){

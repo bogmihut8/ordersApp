@@ -17,7 +17,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Comanda noua cu date precedente</div>
                 <div class="panel-body" id="order">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ action('OrderController@storeAfterDuplicate') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ action('OrderController@storeAfterDuplicate', ['searchTerm' => Request::get('searchTerm') ? Request::get('searchTerm') : '', 'selectedState' => Request::get('selectedState') ? Request::get('selectedState') : '', 'from_date' => Request::get('from_date') ? Request::get('from_date') : '', 'to_date' => Request::get('to_date') ? Request::get('to_date') : '']) }}">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2 input-group{{ $errors->has('name') ? ' has-error' : '' }}">

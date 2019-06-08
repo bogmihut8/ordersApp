@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div style="margin-bottom:20px;">
+              <p>
+                {{ app('request')->input('returnURL') }}
+              </p>
 <!--               <a class="btn btn-default" href="{{ \Session::get('returnURL') }}?searchTerm={{Request::get('searchTerm')}}&selectedState={{Request::get('selectedState')}}&from_date={{Request::get('from_date')}}&to_date={{Request::get('to_date')}}"> -->
                 <a class="btn btn-default" href="{{ \Session::get('returnURL') }}">
                     <i class="fa fa-chevron-left"></i> Inapoi
@@ -258,7 +261,7 @@
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 1))}}">Facturata</a></li>
                                     <li><a href="{{action('OrderController@updateState', array($order['id'], 3))}}">Suspendata</a></li>
                                 </ul>
-                                <a href="/comenzi/public/duplicate/{{$order['id']}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
+                                <a href="/comenzi/public/duplicate/{{$order['id']}}?searchTerm={{Request::get('searchTerm')}}&selectedState={{Request::get('selectedState')}}&from_date={{Request::get('from_date')}}&to_date={{Request::get('to_date')}}" id="duplicate" class="btn btn-info" style="margin-left:15px;">Comanda noua cu aceste date</a>
                                 <button type="submit" class="btn btn-primary" style="margin-left:15px;">Actualizare</button>
                             </div>
                         </div>

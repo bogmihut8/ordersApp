@@ -120,8 +120,8 @@
             </td>
             <td>
                 <a href="{{action('OrderController@destroy', $order->id)}}" class="btn btn-danger" style="margin-left:10px;"><i class="fa fa-trash"></i></a>
-                <a href="{{action('OrderController@show', $order->id)}}" onclick="prepareFrame('{{action('OrderController@show', $order->id)}}')" class="btn btn-primary" style="margin-left:10px;"><i class="fa fa-sign-in"></i></a>
-<!--               <a href="{{action('OrderController@show', [$order->id, 'searchTerm' => isset($searchTerm) ? $searchTerm: '', 'selectedState' => isset($selectedState) ? $selectedState : '', 'from_date' => isset($from_date) ? $from_date : '', 'to_date' => isset($to_date) ? $to_date : ''])}}" onclick="prepareFrame('{{action('OrderController@show', $order->id)}}')" class="btn btn-primary" style="margin-left:10px;"><i class="fa fa-sign-in"></i></a> -->
+              <a href="{{action('OrderController@show', [$order->id, 'searchTerm' => isset($searchTerm) ? $searchTerm: '', 'selectedState' => isset($selectedState) ? $selectedState : '', 'from_date' => isset($from_date) ? $from_date : '', 'to_date' => isset($to_date) ? $to_date : ''])}}" class="btn btn-primary" style="margin-left:10px;"><i class="fa fa-sign-in"></i></a>
+              
             </td>
           </tr>
           @endforeach
@@ -140,16 +140,6 @@
       document.addEventListener('DOMContentLoaded', fn);
     }
   }
-  
-    function prepareFrame(url) {
-//         var ifrm = document.createElement("iframe");
-//         ifrm.setAttribute("src", url);
-//         ifrm.setAttribute("style", "width: 100%;height: 100%;position: absolute;top: 0;margin-top:70px;");
-//         document.body.appendChild(ifrm);
-//         ifrm.addEventListener('load', function(){ifrm.document.getElementById("header").style.display="none"})
-      console.log("ai uitat");
-       
-    }
   
   ready(function(){
     var chClass = 'invoice-checkbox';
